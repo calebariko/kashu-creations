@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 18% 7%;
+  --foreground: 0 0% 97%;
+  --muted-foreground: 220 8% 60%;
+  --primary: 195 100% 55%;
+  --primary-foreground: 220 18% 7%;
+  --secondary: 220 15% 13%;
+  --muted: 220 12% 11%;
+  --accent: 195 100% 55%;
+  --border: 220 14% 18%;
+  --input: 220 14% 18%;
+
+  --font-display: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* ---------------- Liquid Glass ---------------- */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.03);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(0, 210, 255, 0.08) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------------- Gradient Flow Text ---------------- */
+.gradient-flow-text {
+  background: linear-gradient(90deg, #00d2ff, #ffffff, #7fe8ff, #00d2ff);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------------- Glitch Text ---------------- */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.glitch-text.glitching::before {
+  color: rgba(0, 210, 255, 0.8);
+  opacity: 1;
+}
+
+.glitch-text.glitching::after {
+  color: rgba(255, 80, 80, 0.6);
+  opacity: 1;
+}
+
+/* ---------------- Animations (respect reduced motion) ---------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fade-rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 210, 255, 0.25); }
+    50% { box-shadow: 0 0 40px rgba(0, 210, 255, 0.45); }
+  }
+
+  @keyframes scan-line {
+    from { transform: translateY(-100vh); }
+    to { transform: translateY(100vh); }
+  }
+
+  @keyframes glitch {
+    0% { clip-path: inset(0 0 90% 0); transform: translate(0, 0); }
+    20% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 1px); }
+    40% { clip-path: inset(40% 0 30% 0); transform: translate(2px, -1px); }
+    60% { clip-path: inset(60% 0 10% 0); transform: translate(-1px, 2px); }
+    80% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -2px); }
+    100% { clip-path: inset(0 0 90% 0); transform: translate(0, 0); }
+  }
+
+  @keyframes float-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes counter-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .animate-fade-rise { animation: fade-rise 0.9s ease-out both; }
+  .animate-fade-rise-delay { animation: fade-rise 0.9s ease-out 0.2s both; }
+  .animate-fade-rise-delay-2 { animation: fade-rise 0.9s ease-out 0.4s both; }
+  .animate-fade-rise-delay-3 { animation: fade-rise 0.9s ease-out 0.6s both; }
+  .animate-glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
+  .animate-scan-line { animation: scan-line 8s linear infinite; }
+  .animate-float-up { animation: float-up 0.8s ease-out both; }
+  .animate-slide-in-left { animation: slide-in-left 0.7s ease-out both; }
+  .animate-gradient-flow {
+    animation: gradient-flow 3s ease infinite;
+  }
+  .animate-counter-bounce { animation: counter-bounce 0.4s ease-out; }
+  .glitch-text.glitching::before { animation: glitch 0.85s steps(2, end); }
+  .glitch-text.glitching::after { animation: glitch 0.85s steps(2, end) 0.05s; }
+  .cursor-blink { animation: cursor-blink 1s step-end infinite; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-flow-text { background-position: 0% 50%; }
+}
