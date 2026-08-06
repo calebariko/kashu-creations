@@ -6,6 +6,7 @@ import HowItWorks from "./components/HowItWorks";
 import Testimonials from "./components/Testimonials";
 import Pricing from "./components/Pricing";
 import FinalCTA from "./components/FinalCTA";
+import About from "./components/About";
 import Footer from "./components/Footer";
 import ScanLine from "./components/ScanLine";
 
@@ -22,6 +23,7 @@ export default function App() {
         <Testimonials />
         <Pricing />
         <FinalCTA />
+        <About />
       </main>
       <Footer />
     </div>
