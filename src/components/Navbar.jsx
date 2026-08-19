@@ -68,8 +68,12 @@ function Navbar() {
         backdropFilter: scrolled ? undefined : "none",
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-6 flex flex-row justify-between items-center gap-2">
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+      <div 
+        // className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-6 flex flex-row justify-between items-center gap-2"
+        className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-6 items-center gap-2"
+        style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr' }}
+      >
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0" style={{ gridColumn: '1' }}>
           <span
             className="font-display font-extrabold whitespace-nowrap"
             style={{ fontSize: "1.1rem" }}
@@ -82,7 +86,7 @@ function Navbar() {
           </span>
         </div>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8" style={{ gridColumn: '2' }}>
           {/* {NAV_LINKS.map((link) => (
             <a
               key={link}
@@ -115,7 +119,11 @@ function Navbar() {
           )}
         </div>
 
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div 
+          // className="flex items-center gap-3 flex-shrink-0"
+          className="flex items-center gap-3 flex-shrink-0 justify-self-end"
+          style={{ gridColumn: '3' }}
+        >
           <a
             href={whatsappLink(
               "Hi, I'd like to get in touch with Kashu Creations.",
