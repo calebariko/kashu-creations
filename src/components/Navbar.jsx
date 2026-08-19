@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import { whatsappLink } from "../lib/whatsapp";
 import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
-const NAV_LINKS = ["Services", "Work", "Pricing", "Process", "About"];
+// const NAV_LINKS = ["Services", "Pricing", "Process", "About"];
+const NAV_LINKS = [
+  { label: "Services", href: "#services" },
+  { label: "Work", action: "portfolio" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Process", href: "#process" },
+  { label: "About", href: "#about" },
+];
+
 const MOBILE_QUERY = "(max-width: 767px)";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [portfolioOpen, setPortfolioOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(
     () =>
       typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches,
@@ -38,7 +47,7 @@ function Navbar() {
   //   };
   // }, [menuOpen]);
 
-  useBodyScrollLock(menuOpen) // ← NEW: replaces the manual overflow useEffect below
+  useBodyScrollLock(menuOpen || portfolioOpen); // ← NEW: replaces the manual overflow useEffect below
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -74,7 +83,7 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
+          {/* {NAV_LINKS.map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
@@ -82,7 +91,28 @@ function Navbar() {
             >
               {link}
             </a>
-          ))}
+          ))} */}
+
+          {NAV_LINKS.map((link) =>
+            link.href ? (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => setPortfolioOpen(true)}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </button>
+            ),
+          )}
         </div>
 
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -168,7 +198,7 @@ function Navbar() {
             </div>
 
             <div className="flex flex-col px-6 gap-1 mt-2">
-              {NAV_LINKS.map((link) => (
+              {/* {NAV_LINKS.map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
@@ -177,7 +207,32 @@ function Navbar() {
                 >
                   {link}
                 </a>
-              ))}
+              ))} */}
+
+              {NAV_LINKS.map((link) =>
+                link.href ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="py-3 text-base text-foreground border-b border-white/5"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setPortfolioOpen(true);
+                    }}
+                    className="py-3 text-base text-foreground border-b border-white/5 text-left"
+                  >
+                    {link.label}
+                  </button>
+                ),
+              )}
             </div>
 
             <div className="px-6 mt-auto mb-8">
@@ -189,7 +244,6 @@ function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="liquid-glass animate-glow-pulse rounded-full block text-center w-full py-3 text-sm border border-primary/40 text-foreground"
-
               >
                 Call Us
               </a>
@@ -197,6 +251,55 @@ function Navbar() {
           </div>
         </>
       )}
+
+      {/* modal to show work/potfolio in progress */}
+      {portfolioOpen && (
+        <>
+          <div
+            onClick={() => setPortfolioOpen(false)}
+            aria-hidden="true"
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: '#000',
+              opacity: 0.65,
+              zIndex: 90,
+            }}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Portfolio coming soon"
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 91,
+              width: '90%',
+              maxWidth: '380px',
+              background: 'hsl(220 18% 8%)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '1rem',
+              padding: '2rem',
+              textAlign: 'center',
+            }}
+          >
+            <p className="font-display font-bold text-base">Portfolio coming soon</p>
+            <p className="text-xs text-muted-foreground mt-2" style={{ lineHeight: 1.6 }}>
+              We're putting together a showcase of our work. Check back shortly.
+            </p>
+            <button
+              type="button"
+              onClick={() => setPortfolioOpen(false)}
+              className="liquid-glass rounded-full border border-primary/40 px-6 py-2 text-xs mt-5"
+            >
+              Close
+            </button>
+          </div>
+        </>
+      )}
+
     </nav>
   );
 }
