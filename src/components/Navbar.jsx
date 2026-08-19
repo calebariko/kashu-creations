@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { whatsappLink } from "../lib/whatsapp";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 const NAV_LINKS = ["Services", "Work", "Pricing", "Process", "About"];
 const MOBILE_QUERY = "(max-width: 767px)";
@@ -30,12 +31,14 @@ function Navbar() {
     return () => mql.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+  // useEffect(() => {
+  //   document.body.style.overflow = menuOpen ? "hidden" : "";
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, [menuOpen]);
+
+  useBodyScrollLock(menuOpen) // ← NEW: replaces the manual overflow useEffect below
 
   useEffect(() => {
     if (!menuOpen) return;
