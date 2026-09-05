@@ -208,7 +208,7 @@ function LegalModal({ contentKey, onClose }) {
           {content.sections.map((s) => (
             <div key={s.heading} style={{ marginBottom: "1.25rem" }}>
               <h4 className="text-sm font-display font-semibold mb-1">{s.heading}</h4>
-              <p style={{ whiteSpace: "pre-line" }} className="text-xs text-muted-foreground" style={{ lineHeight: 1.7 }}>
+              <p className="text-xs text-muted-foreground" style={{ lineHeight: 1.7 }}>
                 {s.body}
               </p>
             </div>
