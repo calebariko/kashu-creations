@@ -125,9 +125,7 @@ function Navbar() {
           style={{ gridColumn: '3' }}
         >
           <a
-            href={whatsappLink(
-              "Hi, I'd like to get in touch with Kashu Creations.",
-            )}
+            href="tel:+254702011192"
             target="_blank"
             rel="noopener noreferrer"
             className="liquid-glass animate-glow-pulse rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm border border-primary/40 text-foreground transition-transform duration-200 hover:scale-105 whitespace-nowrap inline-block"
